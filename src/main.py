@@ -1,7 +1,8 @@
 import pyaudio
-import wave
 import numpy as np
-from datetime import datetime
+from . import playback
+# import wave
+# from datetime import datetime
 
 # 音データフォーマット
 chunk = 1024
@@ -30,6 +31,16 @@ while True:
     # ndarrayに変換
     x = np.frombuffer(data, dtype="int16") / 32768.0
 
+    # 閾値以上の場合、音楽を再生する
+    if x.max() > threshold:
+        playback.play()
+        cnt += 1
+
+    # 3回検出したら終了
+    if cnt > 3:
+        break
+
+    '''
     # 閾値以上場合はファイル保存
     if x.max() > threshold:
         filename = datetime.today().strftime("%Y%m%d%H%M%S") + ".wav"
@@ -58,6 +69,7 @@ while True:
     # 5回検出したら終了
     if cnt > 5:
         break
+    '''
 
 stream.close()
 audio.terminate()

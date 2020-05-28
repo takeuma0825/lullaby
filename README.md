@@ -8,6 +8,9 @@
 ## 動作環境
 * Raspberry Pi 4
 * Python3.8
+  * python-vlc
+  * pyaudio
+  * numpy
 
 ## 開発環境
 * Windows10
